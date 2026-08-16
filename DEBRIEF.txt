@@ -1,0 +1,72 @@
+RNR PRODUCTIONS - SESSION DEBRIEF
+Date: Sunday, August 16, 2026
+
+WHO THIS IS FOR
+This is a plain spoken catch up for Dave, written so you can paste it into a
+voice reader and just listen. There is no code in here. Just what happened,
+where we are, and what comes next.
+
+THE BIG PICTURE
+Your mission, from your Hugging Face profile as G Dave Roby, is to make AI
+runnable for regular people on regular hardware. You are researching and
+building custom quantization methods so models can run on dated computers, on
+phones, and on machines with no dedicated graphics card, so that everyday people
+can actually use AI. You are also exploring video creation on that same kind of
+low power hardware. In short, you want a local hub that can run on a computer, a
+phone, or any device, and put real AI power in ordinary hands.
+
+Today's work is the control layer that sits underneath that vision.
+
+WHAT I BUILT TODAY
+This morning the project was empty, just a name. I turned it into a working
+foundation for what you have been calling the server feeder. In plain terms, the
+server feeder is a small program that gives an AI assistant a safe set of
+controls over a machine. It can look at the system, run commands, read and write
+files, and list folders. It speaks a standard language called MCP. That is the
+same language tools like Cursor use to talk to their helpers. Because it speaks
+that standard language, it can plug into many assistants, not just me.
+
+Think of it this way. Your quantized models are the brain that can run on small
+devices. The server feeder is the pair of hands that lets that brain actually do
+things on a computer, and later on your server box.
+
+WHERE WE ARE RIGHT NOW
+Everything is built and tested on the cloud machine I work in. I checked three
+things. The code quality check passed clean. The automated tests all passed,
+eleven of them, including one that talks to the server the exact same way a real
+assistant would. And I ran a full live demo where the server started up, I
+connected to it, asked it what tools it had, asked it about the system, and had
+it run a real command. It all worked from start to finish.
+
+I also set the project up so this is repeatable. The next time a fresh machine
+starts, it will install everything on its own and be ready to go.
+
+WHAT IS LEFT FOR YOU
+Almost nothing, and none of it needs a real keyboard. When the panel on the
+right asks you to approve the setup script and to save the environment, just tap
+approve and save. That locks everything in so future sessions start ready. That
+is the only thing that needs you.
+
+HOW THIS CONNECTS TO YOUR HUB IDEA
+The end goal is a hub you can reach from your phone, or any device, that quietly
+runs AI on hardware you already own. Two pieces make that real. The first piece
+is your quantization work, which shrinks models so they run without a fancy
+graphics card. The second piece is this server feeder, which gives the AI safe
+control so it can actually do the work. Today we built the second piece and
+proved it works. Next we point it at your real quantized models, and then bridge
+it to your server computer so you can drive the whole thing from your phone.
+
+WHAT I SUGGEST NEXT
+One. You approve and save the environment so it sticks.
+Two. We add a simple way to reach the server feeder from your phone.
+Three. We connect one of your quantized models so the hands and the brain work
+together.
+Four. We set up the bridge to your server computer.
+
+A NOTE ON OUR FLOW
+You mentioned wanting a nice custom flow where every session ends with a spoken
+debrief like this one. This file is exactly that. From now on I can drop an
+updated version of this at the end of each session, so you always have something
+to listen to instead of reading code.
+
+END OF DEBRIEF
