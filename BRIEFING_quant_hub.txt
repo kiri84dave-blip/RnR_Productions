@@ -1,0 +1,86 @@
+THERIUM QUANT HUB - PLAN BRIEFING
+Date: Sunday, August 16, 2026
+
+WHO THIS IS FOR
+This is a plain spoken briefing for Dave, made to paste into a text to speech
+reader and just listen. No code. This is the plan only. I did not start the
+build, per your instruction. Just planning.
+
+THE ONE SENTENCE VERSION
+We are going to build one simple hub, runnable on your computer or your phone,
+that pulls all your quantization work into a single clean screen, lets you
+control your Forge Spaces on Hugging Face, and then adds an automated mode that
+hunts for the best or even a brand new quantization method on its own, while
+remembering everything so nothing ever gets lost again.
+
+WHAT I ALREADY UNDERSTAND YOU HAVE
+One. Two Forge GUI versions on Hugging Face. You like parts of each, neither is
+finished. We merge the best of both into one clean interface, and the hub can
+also drive them remotely.
+Two. Your priceless data repo, the Roby Pythagorean Quant Therium project. That
+is the real science. The recipes, the layer tests, the sweep and pareto scripts,
+the baseline comparisons, the CSVs, and all your idea documents.
+Three. The control layer I already built this morning, the server feeder. That
+is the hands that let an assistant actually run things on a machine.
+Four. A working, repeatable cloud development setup, already tested.
+Five. Your big local skills library and toolbox, plus more tools on Smithery,
+and your Crew, your multi agent setup where agents plan and brainstorm together.
+
+THE PLAN, IN FOUR PLAIN PIECES
+Piece one, the screen. One responsive web interface that works on desktop and
+phone. It has four simple areas, just like you said. Download local models.
+Change recipes. Change models. Run quantizations. Plus a control area to drive
+your Forge Spaces from one place.
+Piece two, the engine. Every quantization method becomes a plug in recipe with
+the same simple shape, so Therium, Pythagorean, GGUF, AWQ, bitsandbytes, and any
+new ones all snap in cleanly.
+Piece three, the memory. A lab notebook that records every single run. The
+model, the recipe, the settings, which layers were strongest, the size, the
+quality, the speed, the time, and your notes. This is the fix for losing those
+five, six, seven methods the other morning. It will not happen again.
+Piece four, the automatic mode. You give it a model. It does a pre run to find
+which layers are strongest and most sensitive. Then it sweeps many quantizations
+across all recipes with small variations, protecting the sensitive layers. It
+writes down every result, ranks them by quality versus size versus speed, shows
+you the best, and flags anything that beats your baseline as a possible new
+method for you to review.
+
+HOW I AVOID THE KIMI PROBLEM
+You were mad that other assistants go in circles and never fix things. My rule
+is simple. If I get stuck on the same thing twice, I change approach. I bring in
+a subagent, or another model, or I look up a known solution on Smithery or the
+web. I test against real evidence, not guesses. And if I am truly blocked on
+something only you can give me, I say so plainly instead of faking progress.
+
+THE ONE THING THAT BLOCKS THE REAL BUILD
+I cannot reach your C drive from the cloud. Only two PDFs actually reached me.
+So to ingest the priceless recipes and the F GUI file and the two Forge GUIs, I
+need the files. Pick whichever is easiest. Option A, zip the local files for
+cursor folder and the recipe repo and upload them to me. Option B, add a read
+only Hugging Face token as a secret named H F underscore TOKEN, and I will clone
+your Spaces and repos directly, with full history. Option C, push the local
+files into this project under a research folder.
+
+HOW I WILL MAKE SURE NOTHING IS MISSED
+I wrote a strict no miss method. First I inventory every file with a fingerprint,
+including everything inside every zip. Then I classify each one. Then I turn
+every recipe into a structured card with the method, the settings, where it came
+from, and its known results. Then I cross reference the logs and CSVs, and I
+specifically hunt down and recover those lost five, six, seven methods and give
+each its own card. Then I merge the two GUI versions into one. Then I produce a
+coverage report that proves every file was reviewed, and I flag anything unclear
+for you to decide. I will use your Crew style parallel agents for the volume.
+
+WHERE THINGS STAND RIGHT NOW
+Done. The server feeder and the cloud environment, both built and tested.
+Written. The full master plan, the no miss ingestion method, and this briefing.
+Waiting on you. The files, and a couple of one click approvals in the panel.
+Not started. Any actual hub code, because you said plan only. I respected that.
+
+WHAT I NEED FROM YOU WHEN YOU ARE BACK
+One. Send me the files, by zip, token, or push.
+Two. Tell me the hub name you want, or I will call it Therium Quant Hub for now.
+Three. Approve the environment prompts in the panel when they appear.
+That is it. Take your time. The plan is saved and I will not lose the thread.
+
+END OF BRIEFING
