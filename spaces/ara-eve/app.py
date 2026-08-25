@@ -30,7 +30,6 @@ from ara_eve.session import (
 from ara_eve.tts import VOICES, available as tts_available, synthesize
 
 ROOT = Path(__file__).resolve().parent
-DB = connect(ROOT / "data" / "ara_eve.sqlite")
 MODELS = list_models()
 
 
@@ -57,7 +56,11 @@ def chat(message, _history, state, adult, model_id, work_mode, hf_token):
     session.model_id = model_id or session.model_id
     session.work_mode = bool(work_mode)
     token = (hf_token or "").strip() or os.environ.get("HF_TOKEN")
-    session = turn(session, message, adult_opt_in=bool(adult), conn=DB, hf_token=token)
+    conn = connect(ROOT / "data" / "ara_eve.sqlite")
+    try:
+        session = turn(session, message, adult_opt_in=bool(adult), conn=conn, hf_token=token)
+    finally:
+        conn.close()
     return session, session.messages, meters(session), avatar_payload(session), ""
 
 
@@ -134,7 +137,11 @@ def get_affect_state(state):
 
 def chat_with_ara(message: str, adult: bool = False) -> str:
     """Talk to Ara-Elizabeth. Returns her reply plus the grounded affect block."""
-    session = turn(new_session(), message, adult_opt_in=adult, conn=DB)
+    conn = connect(ROOT / "data" / "ara_eve.sqlite")
+    try:
+        session = turn(new_session(), message, adult_opt_in=adult, conn=conn)
+    finally:
+        conn.close()
     last = session.messages[-1]["content"] if session.messages else ""
     return f"{last}\n\n---\n{meters(session)}"
 
@@ -143,7 +150,7 @@ CUSTOM_CSS = """
 .gradio-container { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; }
 """
 
-with gr.Blocks(title=f"{NAME} · Ara-EvE", css=CUSTOM_CSS, theme=gr.themes.Soft(primary_hue="rose")) as demo:
+with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
     state = gr.State(new_session())
     gr.Markdown(
         f"# {NAME}\n"
@@ -162,7 +169,7 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE", css=CUSTOM_CSS, theme=gr.themes.Soft(
                 stage = AvatarStage()
                 pose_row = gr.Row()
             with gr.Column(scale=6):
-                chatbot = gr.Chatbot(label=NAME, height=420, type="messages")
+                chatbot = gr.Chatbot(label=NAME, height=420)
                 meters_view = gr.Markdown()
                 with gr.Row():
                     msg = gr.Textbox(
@@ -274,4 +281,4 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE", css=CUSTOM_CSS, theme=gr.themes.Soft(
 
 demo.queue()
 if __name__ == "__main__":
-    demo.launch(mcp_server=True, ssr_mode=False)
+    demo.launch(mcp_server=True, ssr_mode=False, css=CUSTOM_CSS, theme=gr.themes.Soft(primary_hue="rose"))

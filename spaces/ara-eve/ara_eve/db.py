@@ -12,7 +12,7 @@ DEFAULT_DB = Path(__file__).resolve().parent.parent / "data" / "ara_eve.sqlite"
 def connect(path: Path | None = None) -> sqlite3.Connection:
     db_path = path or DEFAULT_DB
     db_path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(str(db_path))
+    conn = sqlite3.connect(str(db_path), check_same_thread=False)
     conn.row_factory = sqlite3.Row
     init_schema(conn)
     return conn
