@@ -189,6 +189,7 @@ loop();
 })();
 """
 
+from gradio.events import Dependency
 
 class AvatarStage(gr.HTML):
     def __init__(self, value: dict | None = None, **kwargs):
@@ -209,6 +210,11 @@ class AvatarStage(gr.HTML):
 
     def api_info(self):
         return {"type": "object"}
+    from typing import Callable, Literal, Sequence, Any, TYPE_CHECKING
+    from gradio.blocks import Block
+    if TYPE_CHECKING:
+        from gradio.components import Timer
+        from gradio.components.base import Component
 
 
 def dumps(payload: dict) -> str:

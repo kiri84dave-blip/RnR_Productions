@@ -280,5 +280,19 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
 
 
 demo.queue()
+from fastapi.staticfiles import StaticFiles
+
+demo.app.mount(
+    "/ara-assets",
+    StaticFiles(directory=str(ROOT / "assets")),
+    name="ara-assets",
+)
+
 if __name__ == "__main__":
-    demo.launch(mcp_server=True, ssr_mode=False, css=CUSTOM_CSS, theme=gr.themes.Soft(primary_hue="rose"))
+    demo.launch(
+        mcp_server=True,
+        ssr_mode=False,
+        css=CUSTOM_CSS,
+        theme=gr.themes.Soft(primary_hue="rose"),
+        allowed_paths=[str(ROOT / "assets")],
+    )

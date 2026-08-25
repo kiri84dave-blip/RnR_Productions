@@ -40,7 +40,7 @@ class CompanionSession:
     action: str = "look"
     emotion: str = "happy"
     clothing: str = "dressed"
-    glb_url: str = ""
+    glb_url: str = "/ara-assets/KF1b_anim.glb"
     model_id: str = "Qwen/Qwen2.5-7B-Instruct"
     user_id: str = "dave"
     work_mode: bool = False

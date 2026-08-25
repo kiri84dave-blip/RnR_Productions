@@ -25,7 +25,7 @@ An affective state that changes nothing is a costume. Ablate pleasure coupling (
 - Ara-Elizabeth persona from the Modelfile (girlfriend + engineering partner; stop → `Stopped, whats up?`)
 - Appraisal-before-response → LIPS tick → grounded self-report injected into the prompt
 - M11 consent / safety / desire / arousal / satiety / refractory / aftercare
-- Procedural Eve avatar (Three.js) + optional unrigged GLB URL (whole-group pose fallback)
+- Procedural Eve avatar (2D fallback) + bundled `KF1b_anim.glb` (rigged, 9 Mixamo clips)
 - Intimate poses and clothing gated by adult opt-in **and** explicit consent
 - Kokoro TTS (`af_heart` / `af_bella`) on ZeroGPU
 - Hugging Face Inference Providers for chat; switch models in the UI
