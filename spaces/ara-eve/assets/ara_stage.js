@@ -89,6 +89,7 @@ export async function bootGlb(element, props) {
 
   if (fallback) fallback.style.display = "none";
   canvas.style.display = "block";
+  canvas.style.zIndex = "2";
 
   const clock = new THREE.Clock();
   function loop() {

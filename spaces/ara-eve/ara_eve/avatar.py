@@ -170,7 +170,9 @@ function draw(v, dt) {
   }
 }
 
+let draw2d = true;
 function loop() {
+  if (!draw2d) return;
   const dt = 1 / 60;
   t += dt;
   const v = (props && props.value) ? props.value : {};
@@ -182,7 +184,8 @@ loop();
 (async () => {
   try {
     const { bootGlb } = await import(`${location.origin}/ara-assets/ara_stage.js`);
-    await bootGlb(element, props);
+    const ok = await bootGlb(element, props);
+    if (ok) draw2d = false;
   } catch (err) {
     console.warn("KF1b GLB unavailable, keeping 2D figure", err);
   }
