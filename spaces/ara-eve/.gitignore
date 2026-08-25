@@ -7,4 +7,5 @@ __pycache__/
 .cache/
 .hf_cache/
 *.pyc
+*.pyi
 .DS_Store

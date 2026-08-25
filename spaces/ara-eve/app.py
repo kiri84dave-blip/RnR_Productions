@@ -32,6 +32,25 @@ from ara_eve.tts import VOICES, available as tts_available, synthesize
 ROOT = Path(__file__).resolve().parent
 MODELS = list_models()
 
+from fastapi.staticfiles import StaticFiles
+from gradio.routes import App
+
+_create_app = App.create_app
+
+
+def _create_app_with_assets(*args, **kwargs):
+    fastapi_app = _create_app(*args, **kwargs)
+    if not any(getattr(route, "path", None) == "/ara-assets" for route in fastapi_app.routes):
+        fastapi_app.mount(
+            "/ara-assets",
+            StaticFiles(directory=str(ROOT / "assets")),
+            name="ara-assets",
+        )
+    return fastapi_app
+
+
+App.create_app = staticmethod(_create_app_with_assets)  # type: ignore[method-assign]
+
 
 def _session_from(state):
     return state if state is not None else new_session()
@@ -280,13 +299,6 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
 
 
 demo.queue()
-from fastapi.staticfiles import StaticFiles
-
-demo.app.mount(
-    "/ara-assets",
-    StaticFiles(directory=str(ROOT / "assets")),
-    name="ara-assets",
-)
 
 if __name__ == "__main__":
     demo.launch(
