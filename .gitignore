@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.gradio/
+*.db
+*.sqlite
+.cache/
+.hf_cache/
+node_modules/
+*.egg-info/
+dist/
+build/
+.DS_Store
+spaces/ara-eve/.gradio/
