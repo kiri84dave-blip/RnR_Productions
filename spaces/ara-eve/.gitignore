@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.gradio/
+*.db
+*.sqlite
+.cache/
+.hf_cache/
+*.pyc
+*.pyi
+.DS_Store
