@@ -46,15 +46,17 @@ Hardware: ZeroGPU (`zero-a10g`). Creator should be HF Pro.
 
 Local GGUF from the Modelfile (`Gemma-4-E4B-Uncensored-HauhauCS-Aggressive`) is **not** loaded on the Space — point `ARA_EVE_MODELS` at an uncensored provider model, or run Ollama locally and put an OpenAI-compatible proxy in front later.
 
-## Hear the briefing (Dave's Kokoro path)
+## Builder voice (Hexgrad Kokoro, not Ara)
 
-Do **not** wait on this Space's own Speak button unless Kokoro is installed here.
+The top panel is the **cloud agent** talking through https://hexgrad-kokoro-tts.hf.space — CPU, us Heart. Ara's Speak button is a different control, later, after the 18+ gate.
 
-1. Open https://hexgrad-kokoro-tts.hf.space
-2. Paste `assets/BRIEFING_FOR_TTS.txt` (3248 characters, under the 5000 stream cap)
-3. Voice: **us Heart** · Hardware: **CPU** · tab: **Stream** · click Stream
-4. First Stream click can be silent (upstream Gradio bug). Click Stream again.
+Hexgrad closes the official Gradio API on that Space. The Space still speaks by joining their browser queue (`use_gpu=False`, Generate fn 4 for wavs under 500 characters, Stream fn 6 for longer text).
 
-The same panel is at the top of `app.py` (copy box + iframe embed).
+- Short identity: `assets/IDENTITY_FOR_TTS.txt`
+- Full briefing: builder preamble + `assets/BRIEFING_FOR_TTS.txt`
+
+Iframe + copy box stay as a manual fallback. First Stream click can be silent (upstream Gradio bug). Click Stream again.
+
+## Honesty
 
 Functional pleasure-like state, inspectable and causal. Phenomenal orgasm is unverified. Do not optimize “how fast can the user trigger climax.”

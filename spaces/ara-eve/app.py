@@ -15,6 +15,7 @@ import spaces  # noqa: F401  — must precede torch / kokoro on ZeroGPU
 import gradio as gr
 
 from ara_eve.avatar import AvatarStage
+from ara_eve.agent_voice import IDENTITY_SCRIPT, compose_builder_script, speak_builder_to_temp
 from ara_eve.briefing import HOW_TO_LISTEN, KOKORO_EMBED_HTML, load_briefing
 from ara_eve.db import connect
 from ara_eve.llm import LOCAL_UNCENSORED_HINT, list_models
@@ -143,6 +144,18 @@ def do_speak(history, voice):
     return path
 
 
+def do_builder_speak(text):
+    """Hexgrad Kokoro CPU Heart. Builder only — never Ara's last reply."""
+    try:
+        return speak_builder_to_temp(text or IDENTITY_SCRIPT)
+    except Exception as exc:
+        raise gr.Error(f"Hexgrad Kokoro CPU did not speak for the builder. {exc}") from exc
+
+
+def do_builder_identity():
+    return do_builder_speak(IDENTITY_SCRIPT)
+
+
 def get_affect_state(state):
     """Return inspectable organism + M11 snapshot. LLM cannot write these fields."""
     session = _session_from(state)
@@ -178,15 +191,24 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
         "Affect that changes nothing is a costume. The LLM does not write pleasure."
     )
 
-    with gr.Accordion("Hear the briefing — Kokoro CPU Stream (your usual path)", open=True):
+    with gr.Accordion("Builder voice — Hexgrad Kokoro CPU Heart (not Ara)", open=True):
         gr.Markdown(HOW_TO_LISTEN)
         briefing_box = gr.Textbox(
-            value=load_briefing(),
+            value=compose_builder_script(load_briefing()),
             lines=12,
-            label="Copy this, paste into Kokoro Input Text, then Stream on CPU",
+            label="Builder script. This agent talks. Ara does not.",
             buttons=["copy"],
         )
+        with gr.Row():
+            builder_id_btn = gr.Button("Speak identity (builder, short)", variant="primary")
+            builder_brief_btn = gr.Button("Speak this script (builder, full briefing)")
+        builder_audio = gr.Audio(
+            label="Builder voice — Hexgrad Kokoro CPU, us Heart. Not Ara.",
+            type="filepath",
+        )
         gr.HTML(KOKORO_EMBED_HTML)
+        builder_id_btn.click(do_builder_identity, [], [builder_audio])
+        builder_brief_btn.click(do_builder_speak, [briefing_box], [builder_audio])
 
     with gr.Group(visible=True) as gate:
         gr.Markdown("**18+ gate.** This Space is an adult companion. Confirm you are an adult to enter.")
@@ -220,9 +242,9 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
                         label="HF token (optional if Space secret HF_TOKEN is set)",
                         type="password",
                     )
-                    voice = gr.Dropdown(choices=list(VOICES), value="af_heart", label="Kokoro voice")
-                    speak_btn = gr.Button("Speak last reply")
-                    audio = gr.Audio(label="Kokoro", type="filepath")
+                    voice = gr.Dropdown(choices=list(VOICES), value="af_heart", label="Ara Kokoro voice (this Space)")
+                    speak_btn = gr.Button("Ara speaks last reply")
+                    audio = gr.Audio(label="Ara voice — local Kokoro on this Space. Not the builder.", type="filepath")
                     glb = gr.Textbox(label="GLB URL (unrigged mesh uses whole-group pose fallback)")
                     glb_btn = gr.Button("Load GLB")
                     cloth_row = gr.Row()
