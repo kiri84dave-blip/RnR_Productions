@@ -11,22 +11,11 @@ KOKORO_SPACE = "https://huggingface.co/spaces/hexgrad/Kokoro-TTS"
 KOKORO_DIRECT = "https://hexgrad-kokoro-tts.hf.space"
 STREAM_CHAR_CAP = 5000
 
-HOW_TO_LISTEN = """This panel is the builder talking. Not Ara. Not Eve.
+HOW_TO_LISTEN = """This panel is optional. The **Speak now** button in Guide is the voice.
 
-The **Speak as builder** button sends this script to Hexgrad Kokoro on CPU, Heart voice — the same Space you already use. Their official API is closed, so we use the browser queue: Generate for wavs (500 characters per shot, stitched), Stream as a fallback in the iframe.
+Hexgrad Kokoro, CPU, Heart. Not Ara. Short clips autoplay. I will not read a to-do list unless you paste one in the box.
 
-If the button is busy or Hexgrad is queued:
-
-1. Open the direct Kokoro Space (CPU, no ZeroGPU quota).
-2. Paste the builder script below into Input Text.
-3. Voice: us Heart. Hardware: CPU. Not GPU.
-4. Open the Stream tab. Click Stream. The first click sometimes yields no audio — that is their Gradio bug. Click Stream again.
-
-Quick links
-- Direct (paste + stream): https://hexgrad-kokoro-tts.hf.space
-- Hugging Face page: https://huggingface.co/spaces/hexgrad/Kokoro-TTS
-- Builder identity: assets/IDENTITY_FOR_TTS.txt
-- Briefing file: assets/BRIEFING_FOR_TTS.txt
+Fallback Space: https://hexgrad-kokoro-tts.hf.space — CPU, us Heart, Stream tab.
 """
 
 

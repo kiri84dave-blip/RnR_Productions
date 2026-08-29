@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from ara_eve.agent_voice import GENERATE_CHAR_CAP, STREAM_CHAR_CAP, chunk_for_generate
+from ara_eve.agent_voice import GENERATE_CHAR_CAP, chunk_for_generate, compose_builder_script
 from ara_eve.help import (
     DEFAULT_TOPIC,
     HELP_INTRO,
@@ -14,14 +14,16 @@ from ara_eve.help import (
 from ara_eve.lips.catalog import get_event
 
 
-def test_help_script_is_a_how_to_not_a_status_briefing():
+def test_help_script_is_a_short_voice_clip():
     text = load_help_script()
-    assert "End of guide" in text
-    assert "Ara-Elizabeth" in text
-    assert "Task win" in text
-    assert "get_help" in text
+    spoken = help_spoken("overview")
+    assert "Hey Dave" in text
+    assert "not Ara" in text.lower() or "Not Ara" in text
+    assert "to-do list" in text
     assert "End of briefing" not in text
-    assert 0 < len(text) <= STREAM_CHAR_CAP
+    assert "What you do next" not in text
+    assert len(compose_builder_script(spoken)) <= GENERATE_CHAR_CAP
+    assert len(chunk_for_generate(compose_builder_script(spoken))) == 1
 
 
 def test_all_topics_render_and_speak():
@@ -43,10 +45,10 @@ def test_all_topics_render_and_speak():
         assert md.strip()
         assert spoken.strip()
         assert "Unknown help topic" not in md
-        assert len(spoken) <= STREAM_CHAR_CAP
-        chunks = chunk_for_generate(spoken)
+        chunks = chunk_for_generate(compose_builder_script(spoken))
         assert chunks
         assert all(1 <= len(c) <= GENERATE_CHAR_CAP for c in chunks)
+        assert len(chunks) == 1
 
 
 def test_unknown_topic_lists_known_ids():
@@ -77,8 +79,10 @@ def test_app_separates_guide_from_lab_help():
     assert 'gr.Button("Help"' not in src
     assert "get_help" in src
     assert "do_help_speak" in src
-    assert "Read this topic aloud (builder)" in src
+    assert "Speak now (builder voice)" in src
     assert "help_speak_btn.click(do_help_speak" in src
+    assert "autoplay=True" in src
+    assert 'gr.Button("Read this topic aloud (builder)"' not in src
     # Ara's speak path stays hers.
     assert 'speak_btn.click(do_speak' in src
 

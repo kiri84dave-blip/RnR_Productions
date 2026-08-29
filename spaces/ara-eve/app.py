@@ -15,13 +15,14 @@ import spaces  # noqa: F401  — must precede torch / kokoro on ZeroGPU
 import gradio as gr
 
 from ara_eve.avatar import AvatarStage
-from ara_eve.agent_voice import IDENTITY_SCRIPT, compose_builder_script, speak_builder_to_temp
-from ara_eve.briefing import HOW_TO_LISTEN, KOKORO_EMBED_HTML, load_briefing
+from ara_eve.agent_voice import IDENTITY_SCRIPT, speak_builder_to_temp
+from ara_eve.briefing import HOW_TO_LISTEN, KOKORO_EMBED_HTML
 from ara_eve.help import (
     DEFAULT_TOPIC,
     HELP_INTRO,
     help_markdown,
     help_spoken,
+    load_help_script,
     topic_choices,
 )
 from ara_eve.db import connect
@@ -168,7 +169,7 @@ def do_help_topic(topic):
 
 
 def do_help_speak(topic):
-    """Builder Kokoro reads the selected guide topic. Not Ara."""
+    """One short Hexgrad clip. Autoplay. Not a to-do list, not Ara."""
     return do_builder_speak(help_spoken(topic or DEFAULT_TOPIC))
 
 
@@ -221,28 +222,30 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
             label="Topic",
         )
         help_view = gr.Markdown(help_markdown(DEFAULT_TOPIC))
-        help_speak_btn = gr.Button("Read this topic aloud (builder)", variant="secondary")
+        help_speak_btn = gr.Button("Speak now (builder voice)", variant="primary")
         help_audio = gr.Audio(
             label="Guide voice — Hexgrad Kokoro CPU, us Heart. Builder, not Ara.",
             type="filepath",
+            autoplay=True,
         )
         help_topic.change(do_help_topic, [help_topic], [help_view], api_name="show_help_topic")
         help_speak_btn.click(do_help_speak, [help_topic], [help_audio], api_name="speak_help_topic")
 
-    with gr.Accordion("Builder voice — Hexgrad Kokoro CPU Heart (not Ara)", open=True):
+    with gr.Accordion("Builder voice — Hexgrad Kokoro CPU Heart (not Ara)", open=False):
         gr.Markdown(HOW_TO_LISTEN)
         briefing_box = gr.Textbox(
-            value=compose_builder_script(load_briefing()),
-            lines=12,
-            label="Builder script. This agent talks. Ara does not.",
+            value=load_help_script().strip(),
+            lines=6,
+            label="Builder script. Short clip by default. Not Ara.",
             buttons=["copy"],
         )
         with gr.Row():
-            builder_id_btn = gr.Button("Speak identity (builder, short)", variant="primary")
-            builder_brief_btn = gr.Button("Speak this script (builder, full briefing)")
+            builder_id_btn = gr.Button("Speak identity (builder, short)", variant="secondary")
+            builder_brief_btn = gr.Button("Speak this box (builder)")
         builder_audio = gr.Audio(
             label="Builder voice — Hexgrad Kokoro CPU, us Heart. Not Ara.",
             type="filepath",
+            autoplay=True,
         )
         gr.HTML(KOKORO_EMBED_HTML)
         builder_id_btn.click(do_builder_identity, [], [builder_audio])

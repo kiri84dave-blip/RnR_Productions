@@ -21,9 +21,11 @@ class HelpTopic:
 
 HELP_INTRO = """This accordion is **your** help. It does not change Ara's feelings.
 
+Click **Speak now (builder voice)**. One short Kokoro Heart clip. It should
+start playing by itself. That is this agent talking. Not Ara. Not a to-do list.
+
 The lab button **Task win** is different — that pokes L.I.P.S. competence
-("she actually helped"). Pick a topic. **Read this topic aloud** is the
-builder on Hexgrad Kokoro CPU, Heart voice. Not Ara.
+("she actually helped").
 """
 
 _OVERVIEW_MD = """## What this Space is
@@ -42,7 +44,7 @@ process). **M11** gates adult intimacy. The LLM does not write pleasure.
 
 | Control | Who is talking |
 |---|---|
-| **Read this topic aloud** / builder panel | Cloud agent, Hexgrad Kokoro CPU, Heart |
+| **Speak now (builder voice)** | Cloud agent, Hexgrad Kokoro CPU, Heart, autoplay |
 | **Ara speaks last reply** (after 18+) | Ara, local Kokoro on this Space |
 
 ### Fast path
@@ -200,49 +202,39 @@ Never arrived as a rigged GLB. When you have one, Load GLB (or we swap the defau
 """
 
 _CHAT_SPOKEN = (
-    "Chat how-to. Box on the right, hit Send. Stop always works. She says "
-    "Stopped, what's up? Work mode means full files, no placeholders. "
-    "Inference Providers need an H F token in the box or as a Space secret. "
-    "Your uncensored Gemma stays in local Ollama until you point her at a provider."
+    "Hey Dave. This is the cloud agent. Chat: box on the right, Send. "
+    "Stop always works. She says Stopped, what's up? Work mode means full files. "
+    "A token is only for Inference Providers. This clip is mine."
 )
 
 _AVATAR_SPOKEN = (
-    "Avatar how-to. Default body is KF1b. Sword idle kit. Nine Mixamo clips. "
-    "Walk is Jump Two because this file has no walk cycle. Lingerie, nude, "
-    "and intimate poses stay locked until adult opt-in and explicit consent. "
-    "Paste a better GLB later if you want a real girlfriend rig."
+    "Hey Dave. This is the cloud agent. Avatar is KF1b, a sword idle kit. "
+    "Intimate poses stay locked until adult opt-in and consent. This clip is mine."
 )
 
 _VOICES_SPOKEN = (
-    "Voice how-to. This guide and the top panel are the builder on Hexgrad "
-    "Kokoro, CPU, Heart. Ara's Speak button is a different control, after you "
-    "Enter. Do not mix them up. If Stream is silent the first click, click it again."
+    "Hey Dave. This is the cloud agent. Speak now is me, Hexgrad Kokoro, CPU, Heart. "
+    "Ara speaks last reply is hers, after you Enter. This clip is mine."
 )
 
 _LAB_SPOKEN = (
-    "Lab how-to. Warm, Compliment, Joke, Rude, and Task win poke the organism. "
-    "Task win means she actually helped. Competence restored. That is not this "
-    "guide. Skip hours is longing. C three ablation is the causality test. "
-    "Reset starts a new organism."
+    "Hey Dave. This is the cloud agent. Warm, Compliment, Joke, Rude, and Task win "
+    "poke the organism. Task win is not this guide. This clip is mine."
 )
 
 _DEPLOY_SPOKEN = (
-    "Deploy how-to. Keep Hugging Face private. GitHub is public. Do not put "
-    "keys in the repo. Run the deploy script with your H F token, then set "
-    "the Space secret so chat can hit providers. Hardware is Zero G P U."
+    "Hey Dave. This is the cloud agent. Keep Hugging Face private. Do not put "
+    "keys in GitHub. I am not reading a deploy checklist. This clip is mine."
 )
 
 _MCP_SPOKEN = (
-    "M C P how-to. This app launches with an M C P server. Call get_help for "
-    "this guide. Call chat_with_ara to talk. You still need the live private "
-    "Space URL in your phone client."
+    "Hey Dave. This is the cloud agent. Call get_help for this guide. "
+    "Call chat_with_ara to talk. This clip is mine."
 )
 
 _FAQ_SPOKEN = (
-    "F A Q. No token means paste one or set the Space secret. Stick figure "
-    "means weak WebGL on the cloud box. Task win used to be labeled Help and "
-    "it moves her meters. Uncensored Gemma is local Ollama. Alyse is not in "
-    "yet until you give us a rigged GLB."
+    "Hey Dave. This is the cloud agent. Speak now is the voice. Task win used "
+    "to be labeled Help and it moves her meters. This clip is mine."
 )
 
 
