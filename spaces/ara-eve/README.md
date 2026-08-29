@@ -29,7 +29,8 @@ An affective state that changes nothing is a costume. Ablate pleasure coupling (
 - Intimate poses and clothing gated by adult opt-in **and** explicit consent
 - Kokoro TTS (`af_heart` / `af_bella`) on ZeroGPU
 - Hugging Face Inference Providers for chat; switch models in the UI
-- `demo.launch(mcp_server=True)` so you can call her from a phone MCP client
+- `demo.launch(mcp_server=True)` so you can call her from a phone MCP client (`get_help`, `chat_with_ara`)
+- In-app **Guide & help** accordion (how-to topics + builder TTS). Lab **Task win** is LIPS competence, not that guide.
 - Lab trophies: skip-hours longing, compliment habituation, C3 ablation
 
 ## Deploy (private Space)
@@ -46,16 +47,24 @@ Hardware: ZeroGPU (`zero-a10g`). Creator should be HF Pro.
 
 Local GGUF from the Modelfile (`Gemma-4-E4B-Uncensored-HauhauCS-Aggressive`) is **not** loaded on the Space — point `ARA_EVE_MODELS` at an uncensored provider model, or run Ollama locally and put an OpenAI-compatible proxy in front later.
 
+## Guide & help
+
+The **Guide & help** accordion is always visible (including before the 18+ gate). Click **Speak now (builder voice)** for one short Hexgrad Kokoro Heart clip that autoplays. That is the cloud agent talking, not Ara, and not a to-do list.
+
+- Spoken clip: `assets/HELP_FOR_TTS.txt` (fits one Hexgrad Generate call, 500 characters)
+- MCP: `get_help(topic)` with ids `overview`, `chat`, `avatar`, `voices`, `lab`, `deploy`, `mcp`, `faq`
+
+The lab row used to have a button labeled **Help**. That fired LIPS catalog event `help` ("Task success — she actually helped"). It is now labeled **Task win** so it cannot be confused with this guide.
+
 ## Builder voice (Hexgrad Kokoro, not Ara)
 
-The top panel is the **cloud agent** talking through https://hexgrad-kokoro-tts.hf.space — CPU, us Heart. Ara's Speak button is a different control, later, after the 18+ gate.
+The **Speak now** button in Guide is the cloud agent talking through https://hexgrad-kokoro-tts.hf.space — CPU, us Heart, autoplay. Ara's Speak button is a different control, later, after the 18+ gate.
 
-Hexgrad closes the official Gradio API on that Space. The Space still speaks by joining their browser queue (`use_gpu=False`, Generate fn 4 for wavs under 500 characters, Stream fn 6 for longer text).
+Hexgrad closes the official Gradio API on that Space. Short clips use Generate (`use_gpu=False`, fn_index 4, under 500 characters). The optional builder accordion can still speak a pasted script.
 
+- Short help voice: `assets/HELP_FOR_TTS.txt`
 - Short identity: `assets/IDENTITY_FOR_TTS.txt`
-- Full briefing: builder preamble + `assets/BRIEFING_FOR_TTS.txt`
-
-Iframe + copy box stay as a manual fallback. First Stream click can be silent (upstream Gradio bug). Click Stream again.
+- Long status briefing (optional): `assets/BRIEFING_FOR_TTS.txt`
 
 ## Honesty
 

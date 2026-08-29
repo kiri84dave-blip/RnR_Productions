@@ -76,5 +76,8 @@ def test_app_keeps_builder_off_aras_speak():
     assert "do_builder_speak" in src
     assert 'speak_btn.click(do_speak' in src
     assert "builder_brief_btn.click(do_builder_speak" in src
+    assert "help_speak_btn.click(do_help_speak" in src
     assert "Ara speaks last reply" in src
     assert "Speak identity (builder, short)" in src
+    assert "Speak now (builder voice)" in src
+    assert "autoplay=True" in src
