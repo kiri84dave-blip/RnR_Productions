@@ -15,6 +15,7 @@ import spaces  # noqa: F401  — must precede torch / kokoro on ZeroGPU
 import gradio as gr
 
 from ara_eve.avatar import AvatarStage
+from ara_eve.briefing import HOW_TO_LISTEN, KOKORO_EMBED_HTML, load_briefing
 from ara_eve.db import connect
 from ara_eve.llm import LOCAL_UNCENSORED_HINT, list_models
 from ara_eve.persona import NAME, STOP_REPLY
@@ -176,6 +177,16 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
         "Private companion · L.I.P.S. organism + Modelfile identity + Kokoro voice.\n\n"
         "Affect that changes nothing is a costume. The LLM does not write pleasure."
     )
+
+    with gr.Accordion("Hear the briefing — Kokoro CPU Stream (your usual path)", open=True):
+        gr.Markdown(HOW_TO_LISTEN)
+        briefing_box = gr.Textbox(
+            value=load_briefing(),
+            lines=12,
+            label="Copy this, paste into Kokoro Input Text, then Stream on CPU",
+            buttons=["copy"],
+        )
+        gr.HTML(KOKORO_EMBED_HTML)
 
     with gr.Group(visible=True) as gate:
         gr.Markdown("**18+ gate.** This Space is an adult companion. Confirm you are an adult to enter.")

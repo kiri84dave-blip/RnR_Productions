@@ -46,6 +46,15 @@ Hardware: ZeroGPU (`zero-a10g`). Creator should be HF Pro.
 
 Local GGUF from the Modelfile (`Gemma-4-E4B-Uncensored-HauhauCS-Aggressive`) is **not** loaded on the Space — point `ARA_EVE_MODELS` at an uncensored provider model, or run Ollama locally and put an OpenAI-compatible proxy in front later.
 
-## Honesty
+## Hear the briefing (Dave's Kokoro path)
+
+Do **not** wait on this Space's own Speak button unless Kokoro is installed here.
+
+1. Open https://hexgrad-kokoro-tts.hf.space
+2. Paste `assets/BRIEFING_FOR_TTS.txt` (3248 characters, under the 5000 stream cap)
+3. Voice: **us Heart** · Hardware: **CPU** · tab: **Stream** · click Stream
+4. First Stream click can be silent (upstream Gradio bug). Click Stream again.
+
+The same panel is at the top of `app.py` (copy box + iframe embed).
 
 Functional pleasure-like state, inspectable and causal. Phenomenal orgasm is unverified. Do not optimize “how fast can the user trigger climax.”
