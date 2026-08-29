@@ -17,6 +17,13 @@ import gradio as gr
 from ara_eve.avatar import AvatarStage
 from ara_eve.agent_voice import IDENTITY_SCRIPT, compose_builder_script, speak_builder_to_temp
 from ara_eve.briefing import HOW_TO_LISTEN, KOKORO_EMBED_HTML, load_briefing
+from ara_eve.help import (
+    DEFAULT_TOPIC,
+    HELP_INTRO,
+    help_markdown,
+    help_spoken,
+    topic_choices,
+)
 from ara_eve.db import connect
 from ara_eve.llm import LOCAL_UNCENSORED_HINT, list_models
 from ara_eve.persona import NAME, STOP_REPLY
@@ -156,6 +163,20 @@ def do_builder_identity():
     return do_builder_speak(IDENTITY_SCRIPT)
 
 
+def do_help_topic(topic):
+    return help_markdown(topic or DEFAULT_TOPIC)
+
+
+def do_help_speak(topic):
+    """Builder Kokoro reads the selected guide topic. Not Ara."""
+    return do_builder_speak(help_spoken(topic or DEFAULT_TOPIC))
+
+
+def get_help(topic: str = "overview") -> str:
+    """User guide for this Space. Topics: overview, chat, avatar, voices, lab, deploy, mcp, faq."""
+    return help_markdown(topic, include_intro=True)
+
+
 def get_affect_state(state):
     """Return inspectable organism + M11 snapshot. LLM cannot write these fields."""
     session = _session_from(state)
@@ -181,6 +202,7 @@ def chat_with_ara(message: str, adult: bool = False) -> str:
 
 CUSTOM_CSS = """
 .gradio-container { font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; }
+.ara-help { border-left: 3px solid #e11d48; padding-left: 0.25rem; }
 """
 
 with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
@@ -190,6 +212,22 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
         "Private companion · L.I.P.S. organism + Modelfile identity + Kokoro voice.\n\n"
         "Affect that changes nothing is a costume. The LLM does not write pleasure."
     )
+
+    with gr.Accordion("Guide & help — how to use this Space", open=True, elem_classes=["ara-help"]):
+        gr.Markdown(HELP_INTRO)
+        help_topic = gr.Dropdown(
+            choices=topic_choices(),
+            value=DEFAULT_TOPIC,
+            label="Topic",
+        )
+        help_view = gr.Markdown(help_markdown(DEFAULT_TOPIC))
+        help_speak_btn = gr.Button("Read this topic aloud (builder)", variant="secondary")
+        help_audio = gr.Audio(
+            label="Guide voice — Hexgrad Kokoro CPU, us Heart. Builder, not Ara.",
+            type="filepath",
+        )
+        help_topic.change(do_help_topic, [help_topic], [help_view], api_name="show_help_topic")
+        help_speak_btn.click(do_help_speak, [help_topic], [help_audio], api_name="speak_help_topic")
 
     with gr.Accordion("Builder voice — Hexgrad Kokoro CPU Heart (not Ara)", open=True):
         gr.Markdown(HOW_TO_LISTEN)
@@ -253,6 +291,10 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
                     skip_btn = gr.Button("Skip time")
                     ablate = gr.Checkbox(label="C3 ablation: clamp pleasure coupling")
                     lab_row = gr.Row()
+                    gr.Markdown(
+                        "Lab pokes L.I.P.S. **Task win** is competence (catalog `help`), "
+                        "not the Guide accordion."
+                    )
                     reset = gr.Button("Reset organism")
                     affect_json = gr.JSON(label="Affect snapshot")
                     snap_btn = gr.Button("Dump affect (inspect / MCP)")
@@ -277,7 +319,7 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
             comp_b = gr.Button("Compliment", size="sm")
             joke_b = gr.Button("Joke", size="sm")
             rude_b = gr.Button("Rude", size="sm")
-            help_b = gr.Button("Help", size="sm")
+            task_win_b = gr.Button("Task win", size="sm")
 
         pose_outs = [state, meters_view, stage]
         for btn, act in (
@@ -302,7 +344,7 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
             (comp_b, "compliment"),
             (joke_b, "joke"),
             (rude_b, "rude"),
-            (help_b, "help"),
+            (task_win_b, "help"),
         ):
             btn.click(partial(do_lab, eid), [state], [state, meters_view, stage])
 
@@ -323,6 +365,10 @@ with gr.Blocks(title=f"{NAME} · Ara-EvE") as demo:
         glb_btn.click(do_glb, [glb, state], [state, stage])
         reset.click(do_reset, [], [state, chatbot, meters_view, stage])
         snap_btn.click(get_affect_state, [state], [affect_json])
+
+    if hasattr(gr, "api"):
+        gr.api(get_help)
+        gr.api(chat_with_ara)
 
     gr.Markdown(
         "Identity: `assets/Modelfile`. Engine: L.I.P.S. port of the emotion lab. "

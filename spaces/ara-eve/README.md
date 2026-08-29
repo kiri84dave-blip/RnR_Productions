@@ -29,7 +29,8 @@ An affective state that changes nothing is a costume. Ablate pleasure coupling (
 - Intimate poses and clothing gated by adult opt-in **and** explicit consent
 - Kokoro TTS (`af_heart` / `af_bella`) on ZeroGPU
 - Hugging Face Inference Providers for chat; switch models in the UI
-- `demo.launch(mcp_server=True)` so you can call her from a phone MCP client
+- `demo.launch(mcp_server=True)` so you can call her from a phone MCP client (`get_help`, `chat_with_ara`)
+- In-app **Guide & help** accordion (how-to topics + builder TTS). Lab **Task win** is LIPS competence, not that guide.
 - Lab trophies: skip-hours longing, compliment habituation, C3 ablation
 
 ## Deploy (private Space)
@@ -45,6 +46,15 @@ Set Space secret `HF_TOKEN` (write or inference token) so chat can hit Inference
 Hardware: ZeroGPU (`zero-a10g`). Creator should be HF Pro.
 
 Local GGUF from the Modelfile (`Gemma-4-E4B-Uncensored-HauhauCS-Aggressive`) is **not** loaded on the Space — point `ARA_EVE_MODELS` at an uncensored provider model, or run Ollama locally and put an OpenAI-compatible proxy in front later.
+
+## Guide & help
+
+The **Guide & help** accordion is always visible (including before the 18+ gate). Topics cover chat, avatar, the two voices, lab knobs, private deploy, MCP, and FAQ.
+
+- Spoken guide: `assets/HELP_FOR_TTS.txt` (builder Kokoro, not Ara)
+- MCP: `get_help(topic)` with ids `overview`, `chat`, `avatar`, `voices`, `lab`, `deploy`, `mcp`, `faq`
+
+The lab row used to have a button labeled **Help**. That fired LIPS catalog event `help` ("Task success — she actually helped"). It is now labeled **Task win** so it cannot be confused with this guide.
 
 ## Builder voice (Hexgrad Kokoro, not Ara)
 
